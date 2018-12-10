@@ -1,0 +1,1 @@
+oscdimg -bootdata:2#p0,e,bc:\WindowsPE-amd64\fwfiles\Etfsboot.com#pEF,e,bc:\WindowsPE-amd64\fwfiles\Efisys.bin -u1 -udfver102 C:\WindowsPE-amd64\media C:\WindowsPE-amd64\winpeamd64.iso 

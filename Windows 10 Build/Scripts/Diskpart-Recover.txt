@@ -1,0 +1,10 @@
+select disk 0
+select partition 1
+format quick fs=fat32 label="System"
+assign letter="S"
+select partition 3
+format quick fs=ntfs label="Windows"
+assign letter="W"
+select partition 4
+assign letter="R"
+exit
