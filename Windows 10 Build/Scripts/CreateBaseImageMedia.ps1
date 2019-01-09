@@ -52,10 +52,6 @@ Copy-Item -Path $builddir\Scripts\OOBE.ps1 -Destination $builddir\Payload\Payloa
 #The Sysprep script syspreps the system and shutsdown the terminal
 Copy-Item -Path $builddir\Scripts\Sysprep.ps1 -Destination $builddir\Payload\Payload\Sysprep.ps1 -Force
 
-#Copy the DisableScheduledTasks.ps1 script to the Payload folder. This script will be launched automatically by the Audit mode script.
-#This script disables scheduled tasks that are known to show UI or desktop experiences
-Copy-Item -Path $builddir\Scripts\DisableScheduledTasks.ps1 -Destination $builddir\Payload\Payload\DisableScheduledTasks.ps1 -Force
-
 #Copy the EnablePolicies.ps1 script to the Payload folder. This script will be launched automatically by the Audit mode script.
 #This script enables any IoT Specific policies that are needed by the OEM.
 Copy-Item -Path $builddir\Scripts\EnablePolicies.ps1 -Destination $builddir\Payload\Payload\EnablePolicies.ps1 -Force
