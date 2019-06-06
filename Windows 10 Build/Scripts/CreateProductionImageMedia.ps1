@@ -1,20 +1,19 @@
 #General steps for deployment image
-#•	Copy base.wim to deployment.wim in  %builddir%\images
-#•	Mount %builddir%\images\deployment.wim in %mount%
-#•	Copy WinRE.wim from %builddir%\source\WinRE to %mount%\windows\system32\recovery (need to attrib and force)
-#•	Update version in %builddir%\Payload\Sysprep.xml and copy to %mount%\Windows\Panther\Unattend.xml
-#•	Copy %builddir%\Payload to %mount%
-#•	Add latest cumulative update from %builddir%\Cumulative Updates to %mount%
-#•	Copy mpam-fe.exe from %builddir%\Cumulative Updates to %mount%\Payload
-#•  Insert the product key
-#•	Run Cleanup-Image against %mount%
-#•	Unmount %mount% /commit
-#•	Export %builddir%\images\deployment.wim to %builddir%\images\deployment-optimized.wim
-#•	Delete %builddir%\images\deployment.wim
-#•	Rename %builddir%\images\deployment-optimized.wim to %builddir%\images\deployment.wim
-#•	Split %builddir%\images\deployment.wim to %builddir%\source\WinPE\media\install.swm Split on 2GB boundary
-#•	Copy %builddir%\source\WinPE\media to %builddir%\Deliverable\USB
-#•	Run oscdimg against  %builddir%\Deliverable\USB with output to %builddir%\Deliverable\ISO
+#â€¢	Copy base.wim to deployment.wim in  %builddir%\images
+#â€¢	Mount %builddir%\images\deployment.wim in %mount%
+#â€¢	Copy WinRE.wim from %builddir%\source\WinRE to %mount%\windows\system32\recovery (need to attrib and force)
+#â€¢	Copy %builddir%\Payload to %mount%
+#â€¢	Add latest cumulative update from %builddir%\Cumulative Updates to %mount%
+#â€¢	Copy mpam-fe.exe from %builddir%\Cumulative Updates to %mount%\Payload
+#â€¢  Insert the product key
+#â€¢	Run Cleanup-Image against %mount%
+#â€¢	Unmount %mount% /commit
+#â€¢	Export %builddir%\images\deployment.wim to %builddir%\images\deployment-optimized.wim
+#â€¢	Delete %builddir%\images\deployment.wim
+#â€¢	Rename %builddir%\images\deployment-optimized.wim to %builddir%\images\deployment.wim
+#â€¢	Split %builddir%\images\deployment.wim to %builddir%\source\WinPE\media\install.swm Split on 2GB boundary
+#â€¢	Copy %builddir%\source\WinPE\media to %builddir%\Deliverable\USB
+#â€¢	Run oscdimg against  %builddir%\Deliverable\USB with output to %builddir%\Deliverable\ISO
 
 Push-Location -Path $PSScriptRoot
 
