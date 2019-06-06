@@ -27,12 +27,12 @@ Congratulations. You've just completed the first part of using the deployment fr
 
 You can add your own OEM key to the build process so that it is injected during the Audit phase of setup. 
 
-1) Open builddir\scripts\CreateProductionMedia.ps1 in Powershell ISE or a text editor. 
+1) Open builddir\scripts\CreateProductionImageMedia.ps1 in Powershell ISE or a text editor. 
 2) Locate the following line and replace the default key (RKW9C-8NW8G-R4K3M-R664B-F9D8) with the appropriate 5x5 key you were provided.
 
 Set-WindowsProductKey -Path $mount -ProductKey "RKW9C-8NW8G-R4K3M-R664B-F9D8M"
 
-3) Save CreateProductionMedia.ps1
+3) Save CreateProductionImageMedia.ps1
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1 if you are starting a new build or CreateProductionImageMedia.ps1 if you are editing an already captured build.
 
 **Changing the default password for the auto generated user account**
