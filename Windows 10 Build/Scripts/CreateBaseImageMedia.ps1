@@ -71,7 +71,7 @@ Copy-Item -Path $builddir\Scripts\CleanupDeployment.ps1 -Destination $builddir\P
 
 #--- Capture the Payload WIM and add to the image ---#
 #Create the Payload WIM that is deployed to the base image.
-New-WindowsImage -CapturePath $builddir\Payload -ImagePath $builddir\Deliverable\USB\Payload.wim -Name "Software Payload"
+Start-Process -FilePath C:\Windows\System32\Dism.exe -ArgumentList "/capture-image /capturedir=`"$builddir\Payload`" /imagefile=`"$builddir\Deliverable\USB\Payload.wim`" /noacl=all /name=Payload" -Wait -WindowStyle Hidden
 
 #--- Service the install WIM with Language Packs, Features on Demand and Cumulative Updates ---#
 
