@@ -8,18 +8,18 @@ $sources = (Get-Item -Path "..\Source" -Verbose).FullName
 $images = (Get-Item -Path ".\..\Images" -Verbose).FullName
 $deliverables = (Get-Item -Path "..\Deliverable" -Verbose).FullName
 
-function Import-Environment
+function Import-Environment 
 {
-param(
-[parameter(mandatory=$true)]
-[string]$batch
-)
-$dump = cmd /c "`"$batch`" 1>nul && set"
-$dump |%{
-$s = $_ -split '='
-Write-Verbose ("Var {0} = {1}" -f $s[0],$s[1])
-[System.Environment]::SetEnvironmentVariable($s[0],$s[1])
-}
+    param(
+        [parameter(mandatory=$true)]
+        [string]$batch
+    )
+    $dump = cmd /c "`"$batch`" 1>nul && set"
+    $dump | ForEach-Object {
+        $s = $_ -split '='
+        Write-Verbose ("Var {0} = {1}" -f $s[0],$s[1])
+        [System.Environment]::SetEnvironmentVariable($s[0],$s[1])
+    }
 }
 
 #Cleanup the source folders in case a previous WInPE is present
@@ -38,6 +38,9 @@ Copy-Item -Path $builddir\Scripts\Deploy.bat -Destination $mount\Windows\System3
 Copy-Item -Path $builddir\Scripts\Capture.bat -Destination $mount\Windows\System32
 Copy-Item -Path $builddir\Scripts\Diskpart-Deploy.txt -Destination $mount\Windows\System32\Diskpart.txt
 
+#Add any drivers available in Build\Drivers
+Add-WindowsDriver -Path $mount -Driver $drivers -Recurse
+
 #Unmount %mount% /commit
 Dismount-WindowsImage -Path $mount -Save
 
@@ -54,5 +57,4 @@ Copy-Item -Path $builddir\Scripts\startnet-recover.cmd -Destination $mount\Windo
 #Unmount %mount% /commit
 Dismount-WindowsImage -Path $mount -Save
 
-
-
+Pop-Location

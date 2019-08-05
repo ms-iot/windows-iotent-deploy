@@ -25,6 +25,7 @@ $deliverables = (Get-Item -Path "..\Deliverable" -Verbose).FullName
 
 #Cleanup the output folders
 Remove-Item -Path $images\Deployment.wim -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $images\Deployment-Optimized.wim -Force -ErrorAction SilentlyContinue
 Remove-Item -Path $deliverables\USB\* -Recurse -Force -ErrorAction SilentlyContinue
 Remove-Item -Path $deliverables\ISO\* -Recurse -Force -ErrorAction SilentlyContinue
 
@@ -77,4 +78,5 @@ Copy-Item -Path $sources\WinPE\media\* -Destination $deliverables\USB -Recurse -
 
 #Run oscdimg against  %builddir%\Deliverable\USB with output to %builddir%\Deliverable\ISO
 Start-Process -FilePath $builddir\Scripts\MakeBaseISO.bat -Wait -WindowStyle Hidden -PassThru
-cd $builddir
+
+Pop-Location

@@ -18,7 +18,7 @@ New-Item -Path ..\. -Name "Cumulative Updates" -ItemType directory
 
 #Remove the mark of the web from the deployment framework files
 #Remove the mark of the web from the deployment framework files
-Get-Item * -Stream "Zone.Identifier" -ErrorAction SilentlyContinue | ForEach {Unblock-File $_.FileName}
+Get-Item * -Stream "Zone.Identifier" -ErrorAction SilentlyContinue | ForEach-Object {Unblock-File $_.FileName}
 
 
 

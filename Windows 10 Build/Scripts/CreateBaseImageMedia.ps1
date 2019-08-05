@@ -10,6 +10,8 @@ $builddir = (Get-Item -Path ".\..\" -Verbose).FullName
 $mount = (Get-Item -Path ".\..\Mount" -Verbose).FullName
 $sources = (Get-Item -Path "..\Source" -Verbose).FullName
 $images = (Get-Item -Path ".\..\Images" -Verbose).FullName
+$drivers = (Get-Item -Path ".\..\Drivers" -Verbose).FullName
+$policies = (Get-Item -Path ".\..\Policies" -Verbose).FullName
 $deliverables = (Get-Item -Path "..\Deliverable" -Verbose).FullName
 $answerfile = "$builddir\Answer Files\64Bit_UEFI_UnattendedSetup.xml"
 $sysprep_answerfile = "$builddir\Answer Files\Sysprep.xml"
@@ -27,7 +29,7 @@ Copy-Item -Path $answerfile -Destination $deliverables\USB\AutoUnattend.xml -For
 #--- Copying scripts to Payload folder of deployment media ---#
 
 #Copy the Sysprep XML to the Payload folder. This is used to Sysprep the reference machine after Audit mode activities are completed.
-#Note: The double \Payload\Payload path is intended. The data WIM captures the folder $builddir\payload which keeps the software payload 
+#Note: The double \Payload\Payload path is intended. The data WIM captures the folder $builddir\Payload which keeps the software payload 
 # in a subfolder called Payload on the root of the mass storage of the reference machine.
 Copy-Item -Path $sysprep_answerfile -Destination $builddir\Payload\Payload\Sysprep.xml -Force
 
@@ -55,6 +57,9 @@ Copy-Item -Path $builddir\Scripts\Sysprep.ps1 -Destination $builddir\Payload\Pay
 #Copy the EnablePolicies.ps1 script to the Payload folder. This script will be launched automatically by the Audit mode script.
 #This script enables any IoT Specific policies that are needed by the OEM.
 Copy-Item -Path $builddir\Scripts\EnablePolicies.ps1 -Destination $builddir\Payload\Payload\EnablePolicies.ps1 -Force
+
+#Copy the Policies in Build\Policies
+Copy-Item -Path $policies -Destination $builddir\Payload\Payload\ -Recurse -Force
 
 #Copy the EnableSecurityBaseline.ps1 script to the Payload folder. This script will be launched automatically by the Audit mode script.
 #This script applies the Windows 10 Security Baseline policies.
@@ -84,6 +89,9 @@ Get-ChildItem -Path "$builddir\Language Packs\*.cab" -Recurse -File | ForEach-Ob
 #Add any Features on Demand available in Build\Features On Demand
 Get-ChildItem -Path "$builddir\Feature On Demand\*.cab" -Recurse -File | ForEach-Object {Add-WindowsPackage -PackagePath $_ -Path $mount}
 
+#Add any drivers available in Build\Drivers
+Add-WindowsDriver -Path $mount -Driver $drivers -Recurse
+
 #Unmount %mount% /commit
 Dismount-WindowsImage -Path $mount -Save
 
@@ -100,3 +108,5 @@ Rename-Item -Path $builddir\Deliverable\USB\Sources\install-Optimized.wim -NewNa
 
 #Run oscdimg against  %builddir%\Deliverable\USB with output to %builddir%\Deliverable\ISO
 Start-Process -FilePath $builddir\Scripts\MakeBaseISO.bat -Wait -WindowStyle Hidden -PassThru
+
+Pop-Location
