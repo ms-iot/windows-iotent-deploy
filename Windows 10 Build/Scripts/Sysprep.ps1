@@ -1,7 +1,6 @@
 ﻿#Sysprep script 
 
 Push-Location -Path $PSScriptRoot
-
 $payload = $PSScriptRoot
 
 #Clear the product key 

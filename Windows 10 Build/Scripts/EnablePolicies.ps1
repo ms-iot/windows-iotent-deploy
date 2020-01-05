@@ -1,6 +1,9 @@
 ﻿#Enables IoT Specific policies. Uncomment and needed policies. Each policy has a description of what is does and the value being set.
 #The commands are disabled by default. Uncomment the commands to enable policies as needed.
 
+Push-Location -Path $PSScriptRoot
+$payload = $PSScriptRoot
+
 #Set Windows Defender policies. The policies set are:
 #Computer
 #SOFTWARE\Policies\Microsoft\Windows Defender\Scan
@@ -72,7 +75,7 @@
 #SignatureUpdateCatchupInterval
 #DWORD:30
 
-#Start-Process -FilePath "$env:SystemDrive\Payload\Payload\LGPO\LGPO.exe" -ArgumentList "/m $env:SystemDrive\Payload\Payload\DefenderSettings.pol" -WindowStyle Hidden -Wait
+#Start-Process -FilePath "$payload\LGPO\LGPO.exe" -ArgumentList "/m $payload\Policies\DefenderSettings.pol" -WindowStyle Hidden -Wait
 
 #Set Delivery Optimization policies. The policies set are:
 #Computer
@@ -80,7 +83,7 @@
 #DODownloadMode
 #DWORD:0
 
-#Start-Process -FilePath "$env:SystemDrive\Payload\Payload\LGPO\LGPO.exe" -ArgumentList "/m $env:SystemDrive\Payload\Payload\DeliveryOptimization.pol" -WindowStyle Hidden -Wait
+#Start-Process -FilePath "$payload\LGPO\LGPO.exe" -ArgumentList "/m $payload\Policies\DeliveryOptimization.pol" -WindowStyle Hidden -Wait
 
 #Set Smart Screen policies. The policies set are:
 #Computer
@@ -88,7 +91,7 @@
 #EnableSmartScreen
 #DWORD:0
 
-#Start-Process -FilePath "$env:SystemDrive\Payload\Payload\LGPO\LGPO.exe" -ArgumentList "/m $env:SystemDrive\Payload\Payload\DisableSmartScreen.pol" -WindowStyle Hidden -Wait
+#Start-Process -FilePath "$payload\LGPO\LGPO.exe" -ArgumentList "/m $payload\Policies\DisableSmartScreen.pol" -WindowStyle Hidden -Wait
 
 #Set Windows Updates notification level to disabled
 #Computer
@@ -101,6 +104,6 @@
 #UpdateNotificationLevel
 #DWORD:2
 
-#Start-Process -FilePath "$env:SystemDrive\Payload\Payload\LGPO\LGPO.exe" -ArgumentList "/m $env:SystemDrive\Payload\Payload\SetUpdateNotificationLevel.pol" -WindowStyle Hidden -Wait
+#Start-Process -FilePath "$payload\LGPO\LGPO.exe" -ArgumentList "/m $payload\Policies\SetUpdateNotificationLevel.pol" -WindowStyle Hidden -Wait
 
-
+Pop-Location

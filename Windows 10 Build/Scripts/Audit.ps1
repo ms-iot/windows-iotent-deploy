@@ -10,7 +10,9 @@ Push-Location -Path $PSScriptRoot
 $payload = $PSScriptRoot
 
 #Install the latest Windows Defender Update if supplied in the Payload folder
- if (Test-Path -Path $payload\mpam-fe.exe) {Start-Process -FilePath $payload\mpam-fe.exe -Wait}
+if (Test-Path -Path $payload\mpam-fe.exe) {Start-Process -FilePath $payload\mpam-fe.exe -Wait}
 
 #Execute the OEM powershell script to allow OEM software applications, utilities, and OS configuration to take place.
 Invoke-Expression $payload\OEM_Audit.ps1
+
+Pop-Location

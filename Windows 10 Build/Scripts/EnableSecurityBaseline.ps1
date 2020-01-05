@@ -14,3 +14,5 @@ $sec_baseline_script = (Get-Item -Path ".\PreInstall\Windows-10-RS1-and-Server-2
 # Install the Windows 10 Security baseline on the machine. Note, there is an error created when piping in the character to start the script. 
 # The error can be ignored and the baseline is being applied correctly.
 "X" | cmd /c $sec_baseline_script
+
+Pop-Location

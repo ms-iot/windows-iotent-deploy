@@ -6,6 +6,9 @@
 
 ############################################
 
+Push-Location -Path $PSScriptRoot
+$payload = $PSScriptRoot
+
 ##Script Functions
 
 ## For test purposes of the script
@@ -64,14 +67,16 @@ Add-Type @"
   }
 "@
 
-$parent = Get-Process -id ((gwmi win32_process -Filter "processid='$pid'").parentprocessid)
-If ($parent.Name -eq "cmd") {# Being run by via cmd prompt (batch file)
-    $h = (Get-Process cmd).MainWindowHandle
-    [void] [Tricks]::SetForegroundWindow($h)
+    $parent = Get-Process -id ((Get-WmiObject win32_process -Filter "processid='$pid'").parentprocessid)
+    If ($parent.Name -eq "cmd") # Being run by via cmd prompt (batch file)
+    {
+        $h = (Get-Process cmd).MainWindowHandle
+        [void] [Tricks]::SetForegroundWindow($h)
     }
-    else{# being run in powershell ISE or console
-          $h = (Get-Process -id $pid).MainWindowHandle
-          [void] [Tricks]::SetForegroundWindow($h)
+    else # being run in powershell ISE or console
+    {
+        $h = (Get-Process -id $pid).MainWindowHandle
+        [void] [Tricks]::SetForegroundWindow($h)
     }
 } 
 
@@ -87,7 +92,7 @@ Write-Host "Please wait while the OOBE post deployment script completes."
 Get-Focus
 
 #Install the latest Windows Defender Update if supplied in the Payload folder
- if (Test-Path -Path $payload\mpam-fe.exe) {Start-Process -FilePath $payload\mpam-fe.exe -Wait}
+if (Test-Path -Path $payload\mpam-fe.exe) {Start-Process -FilePath $payload\mpam-fe.exe -Wait}
 
 #Execute the OEM powershell script to allow OEM software applications, utilities, and OS configuration to take place.
 Invoke-Expression $payload\OEM_OOBE.ps1
