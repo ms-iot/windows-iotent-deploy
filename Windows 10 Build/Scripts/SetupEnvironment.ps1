@@ -1,5 +1,7 @@
 #SetupEnvironment will create the directories expected by the build framework and remove the mark of the web from the scripts
 
+Push-Location -Path $PSScriptRoot
+
 New-Item -Path ..\. -Name Source -ItemType directory
 New-Item -Path ..\.\Source -Name ISO -ItemType directory
 New-Item -Path ..\. -Name Payload -ItemType directory
