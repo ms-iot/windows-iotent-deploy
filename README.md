@@ -1,6 +1,6 @@
 # windows-iotent-deploy
 
-<b>Quick Start Guide</b>
+## Quick Start Guide
 
 The easiest way to get started with the deployment framework is to complete the steps in this Quick Start Guide on a reference device. After completing the steps, move on to more advanced topics outlined below.
 
@@ -21,9 +21,9 @@ For the purposes of this guide, we use the term builddir to indicate the folder 
 
 Congratulations. You've just completed the first part of using the deployment framework to help with building your OS image. More advanced topics like automating software installation, automating driver installation, setting policies, etc... are outlined below.
 
-<b>Advanced Topics</b>
+## Advanced Topics
 
-**Adding your own Embedded Product Key (ePKEA) to the build process**
+### Adding your own Embedded Product Key (ePKEA) to the build process
 
 You can add your own OEM key to the build process so that it is injected during the Audit phase of setup. 
 
@@ -35,7 +35,7 @@ Set-WindowsProductKey -Path $mount -ProductKey "RKW9C-8NW8G-R4K3M-R664B-F9D8M"
 3) Save CreateProductionImageMedia.ps1
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1 if you are starting a new build or CreateProductionImageMedia.ps1 if you are editing an already captured build.
 
-**Changing the default password for the auto generated user account**
+## Changing the default password for the auto generated user account
 
 During the OOBE phase of setup the user created has a hard-coded name and password. These should be changed to something private to the OEM. To modify the password follow the steps below:
 
@@ -72,7 +72,7 @@ During the OOBE phase of setup the user created has a hard-coded name and passwo
 4) Save Sysprep.xml.
 5) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1. Complete the deployment steps in the quick start guide.
 
-**Adding a new Language Pack to the image**
+## Adding a new Language Pack to the image
 
 You can add Language Packs to the image automatically using the framework. Both the CreateBaseImageMedia and the CreateProductionImageMedia will search the Language Pack folder in \builddir for applicable Language Pack cabs to add to the image.
 
@@ -81,7 +81,7 @@ You can add Language Packs to the image automatically using the framework. Both 
 3) Copy the CAB file to builddir\Language Packs.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1 if you are starting a new build or CreateProductionImageMedia.ps1 if you are editing an already captured build. The Language Pack cabs will be added to the image automatically.
 
-**Adding a new Feauture on Demand (FoD) to the image**
+## Adding a new Feauture on Demand (FoD) to the image
 
 You can add Feature on Demand packages to the image automatically using the framework. Both the CreateBaseImageMedia and the CreateProductionImageMedia will search the Feature On Demand folder in \builddir for applicable FoD cabs to add to the image.
 
@@ -90,7 +90,7 @@ You can add Feature on Demand packages to the image automatically using the fram
 3) Copy the CAB file to builddir\Feature on Demand.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1 if you are starting a new build or CreateProductionImageMedia.ps1 if you are editing an already captured build. The Feature cabs will be added to the image automatically.
 
-**Adding the latest cumulative update to the build process**
+## Adding the latest cumulative update to the build process
 
 The latest cumulative update (LCU) can be added to the build framework to make it easier to deploy the latest bugfixes and security fixes. The LCU packages are availble on the Microsoft Update Catalog: https://www.catalog.update.microsoft.com/Home.aspx. If you are unsure which update is the latest cumulative for your platform, refer to the Windows 10 Update History here: https://support.microsoft.com/en-us/help/4099479/windows-10-update-history. Choose your version from the menu on the left and select the latest cumulative update in the list. Once you have located the latest cumulative upadte on the Windows 10 Update History site, scroll to the bottom of the page and select the link to get the stand-alone package for the update on the Microsoft Update Catalog site. The download is in .MSU format.
 
@@ -100,15 +100,15 @@ The latest cumulative update (LCU) can be added to the build framework to make i
 
 Note: This assumes the Quick Start Guide was followed an the initial base image was captured using WinPE. If you have not completed the Quick Start Guide refer to the steps at the top of this document.
 
-**Adding a new custom Audit mode command to the build process**
+## Adding a new custom Audit mode command to the build process
 
 There are scenarios where adding custom commands during the Audit phase of setup are desired. The deployment framework provides an entrypoint for adding custom commands in the builddir\scripts\OEM_Audit.ps1 script. This script is launched automatically by the builddir\scripts\Audit.ps1 script. Examples of commands that might need to be run during Audit mode include adding drivers via driver installers, installing OEM software, installing 3rd party software and utilities, etc... The OEM_Audit.ps1 script can be edited and commands added just as you would type them normally in a Powershell command prompt. Note that whatever is added to the script should be fully automated if that is the desired experience. Running software and driver installers with their appropriate silent switches could be required, for example.
 
-**Adding a new custom OOBE mode command to the build process**
+## Adding a new custom OOBE mode command to the build process
 
 There are scenarios where adding custom commands during the OOBE phase of setup are desired. The deployment framework provides an entrypoint for adding custom commands in the builddir\scripts\OEM_OOBE.ps1 script. This script is launched automatically by the builddir\scripts\OOBE.ps1 script. Examples of commands that might need to be run during Audit mode include adding drivers via driver installers, installing OEM software, installing 3rd party software and utilities, etc... The OEM_OOBE.ps1 script can be edited and commands added just as you would type them normally in a Powershell command prompt. Note that whatever is added to the script should be fully automated if that is the desired experience. Running software and driver installers with their appropriate silent switches could be required, for example.
 
-**Adding your own binaries to the build process**
+## Adding your own binaries to the build process
 
 There are sceanrios where you need to stage your own binaries on the system to run from the scripts in Audit and OOBE. For example, you may want to include a driver installer named driver.msi and run it during Audit mode. The steps below describe how to stage the binaries in the build system and then execute them during install. The example is in Audit mode but the same applies for OOBE, just edit the appropriate OEM_OOBE.ps1 instead of OEM_Audit.ps1 to add your custom commands.
 
@@ -117,7 +117,7 @@ There are sceanrios where you need to stage your own binaries on the system to r
 3) Save OEM_Audit.ps1.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1. Complete the deployment steps in the quick start guide. The driver installer will run as part of the Audit phase of setup.
 
-**Enabling Shell Launcher**
+## Enabling Shell Launcher
 
 The Shell Launcher feature allows the OEM to specify a Win32 (.NET, C++. etc...) application as the system shell. The feature also allows the OEM to configure specific actions that the system should take in the event the shell application exits (or crashes). There are several entry points where Shell Launcher could be configured during the deployment process. The steps below show how to modify the OEM_OOBE.ps1 script to configure Shell Launcher automatically as part of the build process.
 
@@ -133,7 +133,7 @@ $ShellLauncherClass.SetEnabled($TRUE)
 3) Save OEM_OOBE.ps1.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1 if you are starting a new build or CreateProductionImageMedia.ps1 if you are editing an already captured build.
 
-**Updating the image with the latest Windows Defender definition updates**
+## Updating the image with the latest Windows Defender definition updates
 
 The deployment framework provides a way to udpate Windows Defender definitions as part of the deployment process. This normally happens in Audit mode. Follow the steps below to update the base OS image with the latest definitions.
 
@@ -147,7 +147,7 @@ Note: There is also an option to update the definitions as part of OOBE. This is
 2) Copy mpam-fe.exe to builddir\payload\payload.
 3) Open an administrative powershell command prompt and run builddir\scripts\CreateProductionImageMedia.ps1 to update the existing production build. The definitions will be updated the next time the image is deployed.
 
-**Making Windows Update notifications silent**
+## Making Windows Update notifications silent
 
 There are scenarios where the desire is to allow Windows Update to automatically update devices but also to suppress all the UI created as part of the update proceess. To suppress the Windows Update notifications follow the steps below:
 
@@ -159,7 +159,7 @@ There are scenarios where the desire is to allow Windows Update to automatically
 3) Save EnablePolicies.ps1.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1. Complete the deployment steps in the quick start guide.
 
-**Disabling SmartScreen on the device**
+## Disabling SmartScreen on the device
 
 There are scenarios where Windows Defender Smart Screen may create unwanted UI in the browser. To disable Windows Defender Smart Screen follow the steps below.
 
@@ -171,7 +171,7 @@ There are scenarios where Windows Defender Smart Screen may create unwanted UI i
 3) Save EnablePolicies.ps1.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1. Complete the deployment steps in the quick start guide.
 
-**Disabling Delivery Optimization**
+## Disabling Delivery Optimization
 
 Delivery Optimization is a feature that improves the performance of delivering updates to devices. Part of the capabilities of Delivery Optimization is to specify download locations for updates, including downloading from peer devices. This may not be a desired feature if the IoT device is on the same LAN with other WIndows devices which are not managed in the same way. To disable peer download follow the steps below:
 
@@ -183,7 +183,7 @@ Delivery Optimization is a feature that improves the performance of delivering u
 3) Save EnablePolicies.ps1.
 4) Open an administrative powershell command prompt and run builddir\scripts\CreateBaseImageMedia.ps1. Complete the deployment steps in the quick start guide.
 
-**Windows Defender UI Optimization**
+## Windows Defender UI Optimization
 
 There are scenarios where Windows Defender real time scanning is desired, but the WIndows Defender UI should never be shown. This allows the device to be protected by basic level Windows Defender capabilities while preserving the device user experience. To configure WIndows Defender to show no UI follow the steps below:
 
