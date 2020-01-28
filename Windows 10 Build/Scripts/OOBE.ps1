@@ -81,6 +81,8 @@ If ($parent.Name -eq "cmd") {# Being run by via cmd prompt (batch file)
 
 ##Script init
 
+$payload = $PSScriptRoot
+
 Write-Host "Please wait while the OOBE post deployment script completes."
 
 #Set Focus on the script to accept input
